@@ -13,7 +13,7 @@ module.exports = function iglogger(dispatch) {
 				message('Logging version '+(version));
 			}
 			else if(event.message.includes('!logger start')) {
-				if((/\d/.test(event.message))) {count= parseInt(event.message.replace(/[^0-9\.]/g, ''));},
+				if((/\d/.test(event.message))) {count= parseInt(event.message.replace(/[^0-9\.]/g, ''));};
 				hooker();
 			}
 			else
