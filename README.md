@@ -23,7 +23,7 @@ To log S_SPAWN_USER<3>,input
 - !logger start 10 [start logging 10 S_SPAWN_USER<3> packets] (displays message 'Start log S_SPAWN_USER3 count:10)
 
 ## Errors
-Important: If an invalid version for a def. packet is attempted to log, there will be an error displayed on the console. the logging will continue in this case for all packets received of that def. packet, with the wrong version number. you will have to restart the module by restarting the console to continue logging that packet.
+Important: If an invalid version for a def. packet is attempted to log, there will be an error displayed on the console. the logging will continue in this case for all packets received of that def. packet, with the wrong version number. you will have to restart the module by restarting the console to continue logging that packet. This is why you should double check the logging packet and version before starting the log
 
 If a wrong or nonexistant packet def is entered, console displays an error but no restart necessary. Just check spelling and capitalization.
 
