@@ -1,16 +1,15 @@
 # iglogger
 My personal packet logger that I use in game to test stuffs. Prints out packet info in game chat and creates log files.
 
-Commands (brackets denote the arguments-type without brackets in game)- Spaces only matters for '!logger start' and '!logger save'
-- !logger raw- logs raw packets into .json file
+Commands (brackets denote the variables, type without brackets in game)- Spaces matters for '!logger start', '!logger save' and !logger raw' and '!logger order', anything else you can leave no spaces
+- !logger raw- logs raw packets into .json file (WIP)
+- !logger shush- Toggles whether to display packet data as ingame system messages
+- !logger save- Toggles the creation of log files in .json (see log files)
+
 - !logger order(order number)- changes the order of the packet hook to log (default=-999)
-- !logger(version)- changes the default definition version to log, eg: !logger 2 before using the next command if S_SPAWN_USER<2> is desired instead of S_SPAWN_ME<1> (default: 1)- a confirmation message will be displayed
-
-- !logger(packet name in tera-data def file)- direct the logging of defined packet. Capitalization matters! eg: !logger S_SPAWN_USER will direct the logging of S_SPAWN_USER<version> where version is the current one set by the previous command. Confirmation message with packet definition and version number will be displayed.
-
-- !logger start(number of runs)- Starts the logging and (number of runs) dictate the number of packets definied in the previous command to log before stopping logs. Default number of runs is 1. Changing number of runs will change the default value until module is restarted. Leaving no numbers will just log the number set previously or log 1 if none has been set. Logs are displayed in game system message.
-
-- !logger save- Toggles the creation of log files.(see log files)
+- !logger(version)- changes the default definition version to log and use * instead of a number to log latest version of the defined packet, eg: !logger 2 before using the next command if S_SPAWN_USER<2> is desired.
+- !logger(packet name in tera-data def file)- direct the logging of defined packet. eg: !logger S_SPAWN_USER will direct the logging of S_SPAWN_USER<version> where version is set by the previous command. Confirmation message with packet definition and version number will be displayed.
+- !logger start(number of runs)- Starts the logging and (number of runs) dictate the number of packets definied in the previous command to log before stopping logs. Default number of runs is 1. Leaving no numbers will just log the number set previously or log 1 if none has been set. Logs are displayed in game system message and log files by default.
 
 It is recommended you double check the previous command output message for typos before starting the log.
     
@@ -35,5 +34,7 @@ Log files are created by default whenever !logger start command is used and succ
 Date string format example: 'Mon Feb 31 2017 00:33:00 GMT+0800 (Malay Peninsula Standard Time)'
 
 ## TODO
+- Correct order to take in negatives
+- raw packet logging doesnt output right
 - Export logged Packets to .json file in the same folder, create a new .json hourly
 - Automatically stop hooking of packets that are erronous. 
