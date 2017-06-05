@@ -2,20 +2,17 @@
 My personal packet logger that I use in game to test stuffs. Prints out packet info in game chat and creates log files.
 
 Commands (brackets denote the arguments-type without brackets in game)- Spaces only matters for '!logger start' and '!logger save'
+- !logger raw- logs raw packets into .json file
+- !logger order(order number)- changes the order of the packet hook to log (default=-999)
+- !logger(version)- changes the default definition version to log, eg: !logger 2 before using the next command if S_SPAWN_USER<2> is desired instead of S_SPAWN_ME<1> (default: 1)- a confirmation message will be displayed
 
-!logger(version)- changes the default definition version to log, eg: !logger 2 before using the next command if S_SPAWN_USER<2> is desired instead of S_SPAWN_ME<1> (default: 1)- a confirmation message will be displayed
+- !logger(packet name in tera-data def file)- direct the logging of defined packet. Capitalization matters! eg: !logger S_SPAWN_USER will direct the logging of S_SPAWN_USER<version> where version is the current one set by the previous command. Confirmation message with packet definition and version number will be displayed.
 
-!logger(packet name in tera-data def file)- direct the logging of defined packet. Capitalization matters! eg: !logger S_SPAWN_USER will direct the logging of S_SPAWN_USER<version> where version is the current one set by the previous command. Confirmation message with packet definition and version number will be displayed.
+- !logger start(number of runs)- Starts the logging and (number of runs) dictate the number of packets definied in the previous command to log before stopping logs. Default number of runs is 1. Changing number of runs will change the default value until module is restarted. Leaving no numbers will just log the number set previously or log 1 if none has been set. Logs are displayed in game system message.
 
-!logger start(number of runs)- Starts the logging and (number of runs) dictate the number of packets definied in the previous command to log before stopping logs. Default number of runs is 1. Changing number of runs will change the default value until module is restarted. Leaving no numbers will just log the number set previously or log 1 if none has been set. Logs are displayed in game system message.
-
-!logger save- Toggles the creation of log files.(see log files)
+- !logger save- Toggles the creation of log files.(see log files)
 
 It is recommended you double check the previous command output message for typos before starting the log.
-
-Examples: 
-- !logger start 5 - logs 5 packet of the packet defined in previous command
-- !logger start -logs the number of packets that is previously set or logs 1 packet by default.
     
 ## Sample command 
 To log S_SPAWN_USER<3>,input
