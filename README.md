@@ -1,13 +1,16 @@
 # iglogger
-My personal packet logger for use in game to test stuffs. Prints out packet info in game chat
+My personal packet logger that I use in game to test stuffs. Prints out packet info in game chat and creates log files.
 
-Commands (brackets denote the arguments-type without brackets in game)- Spacing does not matter Except for !logger start
+Commands (brackets denote the arguments-type without brackets in game)- Spaces only matters for '!logger start' and '!logger save'
 
 !logger(version)- changes the default definition version to log, eg: !logger 2 before using the next command if S_SPAWN_USER<2> is desired instead of S_SPAWN_ME<1> (default: 1)- a confirmation message will be displayed
 
 !logger(packet name in tera-data def file)- direct the logging of defined packet. Capitalization matters! eg: !logger S_SPAWN_USER will direct the logging of S_SPAWN_USER<version> where version is the current one set by the previous command. Confirmation message with packet definition and version number will be displayed.
 
-!logger start(number of runs)- Starts the logging and (number of runs) dictate the number of packets definied in the previous command to log before stopping logs. Default number of runs is 1. Changing number of runs will change the default value until module is restarted. Logs are displayed in game system message. Leaving no numbers will just log the number set previously or log 1 if none has been set.
+!logger start(number of runs)- Starts the logging and (number of runs) dictate the number of packets definied in the previous command to log before stopping logs. Default number of runs is 1. Changing number of runs will change the default value until module is restarted. Leaving no numbers will just log the number set previously or log 1 if none has been set. Logs are displayed in game system message.
+
+!logger save- Toggles the creation of log files.(see log files)
+
 It is recommended you double check the previous command output message for typos before starting the log.
 
 Examples: 
@@ -23,11 +26,16 @@ To log S_SPAWN_USER<3>,input
 - !logger start 10 [start logging 10 S_SPAWN_USER<3> packets] (displays message 'Start log S_SPAWN_USER3 count:10)
 
 ## Errors
-Important: If an invalid version for a def. packet is attempted to log, there will be an error displayed on the console. the logging will continue in this case for all packets received of that def. packet, with the wrong version number. you will have to restart the module by restarting the console to continue logging that packet. This is why you should double check the logging packet and version before starting the log
+Important: If an invalid version for a def. packet is attempted to log, there will be an error displayed on the console. the logging will continue in this case for all packets received of that def. packet, with the wrong version number. you will have to restart the module by restarting the console to continue logging that packet. This is why you should double check the logging packet and version before starting the log.
 
 If a wrong or nonexistant packet def is entered, console displays an error but no restart necessary. Just check spelling and capitalization.
 
 C_CHAT packets should be correctly inputed or else it may cause the packet blocking commands(return false) on all C_CHAT hooks to fail. The only right packet to log for this is C_CHAT<1>. Make sure message displayed is 'Logging C_CHAT 1' before starting. You should restart the console before proceeding if wrong C_CHAT version is logged, as ur subsequent messages will be sent to servers, not even the no-more-command-typos module can prevent that.
+
+## Log files
+Log files are created by default whenever !logger start command is used and successfully completes and is stored in same folder as index.js of this module. New Logs files are created when the date and hour changes for better recording. Logs have time of log attached to the entry. To change this, modify datehour (slice less end strings if you do not want to create logs files every hour)
+
+Date string format example: 'Mon Feb 31 2017 00:33:00 GMT+0800 (Malay Peninsula Standard Time)'
 
 ## TODO
 - Export logged Packets to .json file in the same folder, create a new .json hourly
