@@ -13,7 +13,8 @@ module.exports = function iglogger(dispatch) {
 				message('Logging version '+(version));
 			}
 			else if(event.message.includes('!logger start')) {
-				if((/\d/.test(event.message))) {count= parseInt(event.message.replace(/[^0-9\.]/g, ''));};
+				if((/\d/.test(event.message))) {count= parseInt((event.message.replace(/[^0-9\.]/g, '')),10);};
+				message('Start log '+(msgstr)+(version)+' count: '+(count)),
 				hooker();
 			}
 			else
@@ -40,7 +41,7 @@ module.exports = function iglogger(dispatch) {
 		for(i = 0; i < count; i++) {
 			dispatch.hookOnce(msgstr, version, event => {
 				textstring= JSON.stringify(event),
-				message(msgstr+version+': '+textstring);
+				message('['+msgstr+version+'] '+(i)+' : '+textstring);
 			});
 		};
     };
