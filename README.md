@@ -6,7 +6,8 @@ Brackets denote the variables, type without brackets in game-Will conflict with 
 
 Spaces only matters for the following strings: '!logger raw','!logger save','!logger order','!logger version' and '!logger start'
 
-- !logger raw- logs raw packets into .json file (see 'log files' section). Will log until console is teriminated and no system messages containing strings will be displayed for raw hookings.
+- !logger raw- logs all raw packets into .json file (see 'log files' section). Will log until console is teriminated and no system messages containing strings will be displayed for raw hookings.
+- !logger raw(packet name)- logs all raw packets with that packet name only into .json file (see 'log files' section). Will log until console is teriminated.
 
 - !logger shush- Toggles whether to display packet data as ingame system messages
 - !logger save- Toggles the creation of log files in .json (see 'log files' section)
@@ -36,8 +37,8 @@ To log all defined packets of the latest version for a set count, input
 This logs the 1st 100 defined packets that passes though the proxy. However, no packet name is displayed. To display it, simply enable !logger raw to log all raw packets and compare the time stamp of raw packet to match with the data logs.
 
 To log raw packets, input
-- !logger raw -(logs every single raw packet that comes from proxy)
-- !logger raw S_SPAWN_ME -(logs raw packet with that defined name only)
+- !logger raw -(logs every single raw packet that passes proxy)
+- !logger raw S_SPAWN_USER -(logs all S_SPAWN_USER raw packets with that defined name only)
 
 ## Errors
 Important: If an invalid version for a def. packet is attempted to log, there will be an error displayed on the console. the logging will continue in this case for all packets received of that def. packet, with the wrong version number. you will have to restart the module by restarting the console to continue logging that packet. This is why you should double check the logging packet and version before starting the log.
@@ -46,17 +47,21 @@ If a wrong or nonexistant packet def is entered, console displays an error but n
 
 C_CHAT packets should be correctly inputed or else it may cause the packet blocking commands(return false) on all C_CHAT hooks to fail. The only right packet to log for this is C_CHAT<1>. Make sure message displayed is 'Logging C_CHAT 1' before starting. You should restart the console before proceeding if wrong C_CHAT version is logged, as ur subsequent messages will be sent to servers, not even the no-more-command-typos module can prevent that. Try not to link anything in your chat or it breaks the notif function using sys messages.
 
-S_CHAT hook is abit wonky when system msg feature is used, it doesnt display it properly on system messages, probably due to the fact that links cannt be displayed on chat. The module will silence all S_CHAT hooking from displaying in system messages. However, it will still be logged in .json file properly.
+S_CHAT hook is abit wonky when system msg feature is used, it doesnt display it properly on system messages, probably due to the fact that links cannot be displayed on system messages. The module will silence all S_CHAT hooking from displaying in system messages. However, it will still be logged in .json file properly.
 
 ## Log files
-Log files are created by default whenever !logger start command is used and successfully completes and is stored in same folder as index.js of this module. New Logs files are created when the date and hour changes for better recording. Logs have time of log attached to the entry. To change this, modify datehour (slice less end strings if you do not want to create logs files every hour). The name of the log files created not using raw hook is in format of 'log (date) (hour)'.json
+Log files are created by default whenever !logger start command is used and successfully completes and is stored in same folder as index.js of this module. New Logs files are created when the date and hour changes for better recording. Logs have time of log attached to the entry. To change this, modify datehour (slice less end strings if you do not want to create logs files every hour).
 
 Date string format example: 'Mon Feb 31 2017 00:33:00 GMT+0800 (Malay Peninsula Standard Time)'
+
+The name of the log files created not using raw hook is in format of 'log (date) (hour)'.json.
 
 Data format for defined hooks: [timestamp][packetname+version number](order hooked) count: {data string}
 - Example: [5:08:34] [C_PLAYER_LOCATION *](-999) 3 : {data}
 
-Data format for raw hooks: [timestamp] : From server? 'yes/no' (packetname) 'data' . Will log until console is teriminated.
+The name of the log files created using raw hook is in format of 'log_raw (packet name) (date) (hour)'.json. Packet name is 'All' if all raw packets are logged ('*')
+
+Data format for raw hooks: [timestamp] : From server? 'yes/no' (packetname) 'data' 
 - Example [4:47:08]: From server? Yes (S_RESPONSE_GAMESTAT_PONG) 040080e8
 
 ## TODO
