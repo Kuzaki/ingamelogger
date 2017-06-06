@@ -1,7 +1,7 @@
 # iglogger
 My personal packet logger that I use in game to test stuffs. Prints out packet info in game chat and creates log files. This readme is wordy but its for my own reference since I have a bad memory >.<
 
-Commands (brackets denote the variables, type without brackets in game)- 
+Commands (brackets denote the variables, type without brackets in game)-Will conflict with commands that has 'logger' in the command
 - !logger raw- logs raw packets into .json file (see 'log files' section). Will log until console is teriminated and no system messages containing strings will be displayed for raw hookings.
 
 - !logger shush- Toggles whether to display packet data as ingame system messages
