@@ -2,12 +2,12 @@ const fs = require('fs');
 module.exports = function iglogger(dispatch) {
 	let msgstr,
 		txt;
-	let	version=1, //default packet version
+	let	version=1,	//default packet version
+		writeto=true, //default write to log file (true to save logs)
+		shush=false,  //default silence system messages (true to silence sys msg)
+		orderno= -999, //default order of packet (refer to tera-proxy-game readme)
 		i=1,
 		count=1,
-		writeto=true,
-		shush=false,
-		orderno= -999,
 		textstring='';
 		
 
@@ -52,8 +52,10 @@ module.exports = function iglogger(dispatch) {
 					message('Saving Logs disabled');
 			}
 			else if(event.message.includes('!logger raw')) 	{
-				hookall(),
-				message('Logging raw packets, Order:'+orderno);		
+				let pkt=(event.message.replace('!logger raw', '').replace(' ','')).replace('</FONT>','').replace('<FONT>','');
+				if(pkt==='') {pkt='*';};
+				hookall(pkt),
+				message('Logging raw '+pkt+' packets. Order:'+orderno);		
 			}
 			else
 				txt = event.message,
@@ -93,12 +95,12 @@ module.exports = function iglogger(dispatch) {
 			message('Finished logging');
 	};		
 	
-	function hookall() {
-		dispatch.hook('*', 'raw', {order: (orderno)}, (code, data, fromServer) => { 
+	function hookall(pktname) {
+		dispatch.hook(pktname, 'raw', {order: (orderno)}, (code, data, fromServer) => { 
 			let rawtext={x:(fromServer ? 'Yes' : 'No'), y: (dispatch.base.protocolMap.code.get(code)), z: (data.toString('hex'))};
 			let datehour=JSON.stringify(Date()).slice(5,20).replace(':','h'),
 			minutesec=JSON.stringify(Date()).slice(18,25);
-			fs.appendFileSync(((__filename).replace('index.js',('log_raw '+datehour+'.json'))),('['+minutesec+']'+': '+'From server? '+(rawtext.x)+' ('+(rawtext.y)+') '+(rawtext.z)+'\r\n'));
+			fs.appendFileSync(((__filename).replace('index.js',('log_raw '+pktname.replace('*','All')+' '+datehour+'.json'))),('['+minutesec+']'+': '+'From server? '+(rawtext.x)+' ('+(rawtext.y)+') '+(rawtext.z)+'\r\n'));
 		});
 	};
 };
