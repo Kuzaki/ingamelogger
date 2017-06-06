@@ -1,7 +1,11 @@
 # iglogger
 My personal packet logger that I use in game to test stuffs. Prints out packet info in game chat and creates log files. This readme is wordy but its for my own reference since I have a bad memory >.<
 
-Commands (brackets denote the variables, type without brackets in game)-Will conflict with commands that has 'logger' in the command
+## Commands
+Brackets denote the variables, type without brackets in game-Will conflict with commands that has 'logger' in the command.
+
+Spaces only matters for the following strings: '!logger raw','!logger save','!logger order','!logger version' and '!logger start'
+
 - !logger raw- logs raw packets into .json file (see 'log files' section). Will log until console is teriminated and no system messages containing strings will be displayed for raw hookings.
 
 - !logger shush- Toggles whether to display packet data as ingame system messages
@@ -30,6 +34,10 @@ To log all defined packets of the latest version for a set count, input
 - !logger shush (silences sys messages for large counts)
 - !logger start 100
 This logs the 1st 100 defined packets that passes though the proxy. However, no packet name is displayed. To display it, simply enable !logger raw to log all raw packets and compare the time stamp of raw packet to match with the data logs.
+
+To log raw packets, input
+- !logger raw -(logs every single raw packet that comes from proxy)
+- !logger raw S_SPAWN_ME -(logs raw packet with that defined name only)
 
 ## Errors
 Important: If an invalid version for a def. packet is attempted to log, there will be an error displayed on the console. the logging will continue in this case for all packets received of that def. packet, with the wrong version number. you will have to restart the module by restarting the console to continue logging that packet. This is why you should double check the logging packet and version before starting the log.
