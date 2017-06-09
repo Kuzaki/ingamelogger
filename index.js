@@ -6,7 +6,6 @@ module.exports = function iglogger(dispatch) {
 		writeto=true, //default write to log file (true to save logs)
 		shush=false,  //default silence system messages (true to silence sys msg)
 		orderno= -999, //default order of packet (refer to tera-proxy-game readme)
-		i=1,
 		count=1,
 		textstring='';
 		
@@ -17,9 +16,8 @@ module.exports = function iglogger(dispatch) {
 				if((/\d/.test(event.message))) {
 					count= parseInt((event.message.replace(/[^0-9\.]/g, '')),10);
 				};
-				i=1;
 				message('Start log '+(msgstr)+(version)+' count: '+(count)),
-				hooker(count);
+				hooker(count,msgstr,version,orderno,1);
 			}
 			else if(event.message.includes('!logger order')) {
 				orderno= parseInt((event.message.replace(/[^0-9\.\-]/g, '')),10), //update negative value
@@ -77,18 +75,18 @@ module.exports = function iglogger(dispatch) {
 		});
 	};
 	
-	function hooker(counter) {
-		if(i<=counter) {
-			dispatch.hookOnce(msgstr, version, {order: (orderno)}, event => {
+	function hooker(counter,msgstring,ver,ordern,id) {
+		if(id<=counter) {
+			dispatch.hookOnce(msgstring, ver, {order: (ordern)}, event => {
 				textstring= JSON.stringify(event);
-				if(!shush && msgstr!=='S_CHAT') {message('['+msgstr+version+'] '+(i)+' : '+textstring);};
+				if(!shush && msgstring!=='S_CHAT') {message('['+msgstring+ver+'] '+(id)+' : '+textstring);};
 				if(writeto) {
 					let datehour=JSON.stringify(Date()).slice(5,20).replace(':','h'),
 					minutesec=JSON.stringify(Date()).slice(18,25);
-					fs.appendFileSync(((__filename).replace('index.js',('log '+datehour+'.json'))),('['+minutesec+'] ['+msgstr+' '+version+']('+orderno+') '+(i)+' : '+textstring+'\r\n'))
+					fs.appendFileSync(((__filename).replace('index.js',('log '+datehour+'.json'))),('['+minutesec+'] ['+msgstring+' '+ver+']('+ordern+') '+(id)+' : '+textstring+'\r\n'))
 				};
-				i++,
-				hooker(count);
+				id++,
+				hooker(count,msgstring,ver,ordern,id);
 			});			
 		}
 		else
