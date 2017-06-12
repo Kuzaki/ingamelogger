@@ -1,6 +1,7 @@
 # iglogger
 My personal packet logger that I use in game to test stuffs. Prints out packet info in game chat and creates log files. This readme is wordy but its for my own reference since I have a bad memory >.<
 
+Warning: Don't attempt do anything you are not sure of. You will certainly get yourself banned.
 ## Commands
 Brackets denote the variables, type without brackets in game-Will conflict with commands that has 'logger' in the command.
 
