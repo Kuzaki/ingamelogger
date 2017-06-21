@@ -2,7 +2,7 @@ const fs = require('fs');
 module.exports = function iglogger(dispatch) {
 	let msgstr,
 		txt;
-	let	version=1,	//default packet version
+	let	version='*',	//default packet version
 		writeto=true, //default write to log file (true to save logs)
 		shush=false,  //default silence system messages (true to silence sys msg)
 		orderno= -999, //default order of packet (refer to tera-proxy-game readme)
