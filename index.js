@@ -80,6 +80,7 @@ module.exports = function iglogger(dispatch) {
 	})
 
 	command.add('logger', packet => {
+		msgstr=packet,
 		command.message('Logging '+(msgstr)+' '+(version)+' Order:'+orderno)
 	})
 
