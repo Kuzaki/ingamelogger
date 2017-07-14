@@ -18,21 +18,11 @@ module.exports = function iglogger(dispatch) {
 		textstring = ''
 		
 	command.add('loggerstart',count => {
-		count=parseInt(count),
+		if(!isNaN(count)) 
+			count=parseInt(count);
 		command.message('Start log '+(msgstr)+(version)+' count: '+(count)),
 		hooker(count,msgstr,version,orderno,1)
 	})
-	
-	command.add('loggerconsole',() => {
-		if(!consolelog) {
-			consolelog=true,
-			command.message('Logger console logs enabled')
-		}
-		else
-			consolelog=false, 
-			message('Logger console logs disabled')
-	})
-
 	
 	command.add('loggerorder',order => {
 		orderno= parseInt(orderno), //update negative value
@@ -69,6 +59,17 @@ module.exports = function iglogger(dispatch) {
 			writeto=false, 
 			command.message('Saving Logs disabled')
 	})
+	
+	command.add('loggerconsole',() => {
+		if(!consolelog) {
+			consolelog=true,
+			command.message('Logger console logs enabled')
+		}
+		else
+			consolelog=false, 
+			message('Logger console logs disabled')
+	})
+
 	
 	command.add('loggerraw', pkt => {
 		if(pkt===undefined) {
