@@ -17,15 +17,14 @@ module.exports = function iglogger(dispatch) {
 		count = 1,
 		textstring = ''
 		
-	command.add('loggerstart',count => {
-		if(!isNaN(count)) 
-			count=parseInt(count);
+	command.add('loggerstart',counts => {
+		if(counts!==undefined) count=parseInt(counts);
 		command.message('Start log '+(msgstr)+(version)+' count: '+(count)),
 		hooker(count,msgstr,version,orderno,1)
 	})
 	
 	command.add('loggerorder',order => {
-		orderno= parseInt(orderno), //update negative value
+		orderno= parseInt(order), //update negative value
 		command.message('Logging order '+orderno)
 	})
 	
@@ -36,7 +35,7 @@ module.exports = function iglogger(dispatch) {
 		}
 		else
 			sysmsg=false, 
-			command.message('Logger system message disabled')
+			message('Logger system message disabled')
 	})
 
 	command.add('loggerversion', versionno => {
@@ -67,7 +66,7 @@ module.exports = function iglogger(dispatch) {
 		}
 		else
 			consolelog=false, 
-			command.message('Logger console logs disabled')
+			message('Logger console logs disabled')
 	})
 
 	
@@ -93,8 +92,8 @@ module.exports = function iglogger(dispatch) {
 				if(consolelog)
 					console.log('['+msgstring+ver+'] '+(id)+' : '+textstring);
 				if(writeto) {
-					let datehour=Date().slice(5,20).replace(':','h'),
-					minutesec=Date().slice(18,25);
+					let datehour=Date().slice(4,19).replace(':','h'),
+					minutesec=Date().slice(17,24);
 					fs.appendFileSync(path.join(__dirname,('log '+datehour+'.json')),('['+minutesec+'] ['+msgstring+' '+ver+']('+ordern+') '+(id)+' : '+textstring+'\r\n'))
 				}
 				id++,
@@ -108,9 +107,9 @@ module.exports = function iglogger(dispatch) {
 	function hookall(pktname) {
 		dispatch.hook(pktname, 'raw', {order: (orderno)}, (code, data, fromServer) => { 
 			let rawtext={x:(fromServer ? 'Yes' : 'No'), y: (dispatch.base.protocolMap.code.get(code)), z: (data.toString('hex'))},
-				datehour=Date().slice(5,20).replace(':','h'),
-				minutesec=Date().slice(18,25);
-			console.log('['+minutesec+']'+': '+'From server? '+rawtext.x+' ('+rawtext.y+') '+rawtext.z),
+				datehour=Date().slice(4,19).replace(':','h'),
+				minutesec=Date().slice(17,24);
+			if(consolelog) console.log('['+minutesec+']'+': '+'From server? '+rawtext.x+' ('+rawtext.y+') '+rawtext.z);
 			fs.appendFileSync(path.join(__dirname,('log_raw '+pktname.replace('*','All')+' '+datehour+'.json')),('['+minutesec+']'+': '+'From server? '+(rawtext.x)+' ('+(rawtext.y)+') '+(rawtext.z)+'\r\n'))
 		})
 	}
