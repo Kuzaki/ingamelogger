@@ -36,7 +36,7 @@ module.exports = function iglogger(dispatch) {
 		}
 		else
 			sysmsg=false, 
-			message('Logger system message disabled')
+			command.message('Logger system message disabled')
 	})
 
 	command.add('loggerversion', versionno => {
@@ -67,7 +67,7 @@ module.exports = function iglogger(dispatch) {
 		}
 		else
 			consolelog=false, 
-			message('Logger console logs disabled')
+			command.message('Logger console logs disabled')
 	})
 
 	
