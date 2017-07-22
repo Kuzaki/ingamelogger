@@ -93,7 +93,7 @@ module.exports = function iglogger(dispatch) {
 					console.log('['+msgstring+ver+'] '+(id)+' : '+textstring);
 				if(writeto) {
 					let datehour=Date().slice(4,19).replace(':','h'),
-					minutesec=Date().slice(17,24);
+					minutesec=Date().slice(16,24);
 					fs.appendFileSync(path.join(__dirname,('log '+datehour+'.json')),('['+minutesec+'] ['+msgstring+' '+ver+']('+ordern+') '+(id)+' : '+textstring+'\r\n'))
 				}
 				id++,
@@ -108,7 +108,7 @@ module.exports = function iglogger(dispatch) {
 		dispatch.hook(pktname, 'raw', {order: (orderno)}, (code, data, fromServer) => { 
 			let rawtext={x:(fromServer ? 'Yes' : 'No'), y: (dispatch.base.protocolMap.code.get(code)), z: (data.toString('hex'))},
 				datehour=Date().slice(4,19).replace(':','h'),
-				minutesec=Date().slice(17,24);
+				minutesec=Date().slice(16,24);
 			if(consolelog) console.log('['+minutesec+']'+': '+'From server? '+rawtext.x+' ('+rawtext.y+') '+rawtext.z);
 			fs.appendFileSync(path.join(__dirname,('log_raw '+pktname.replace('*','All')+' '+datehour+'.json')),('['+minutesec+']'+': '+'From server? '+(rawtext.x)+' ('+(rawtext.y)+') '+(rawtext.z)+'\r\n'))
 		})
