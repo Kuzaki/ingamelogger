@@ -68,6 +68,10 @@ module.exports = function iglogger(dispatch) {
 		command.message('Logging '+(msgstr)+' '+(version)+' Order:'+orderno)
 	})
 	
+	command.add('loggerbreak', () => {
+		breakoff()
+		command.message('Break off Logger. Search for the word chunk.')
+	})
 	
 	
 	//////Functions
@@ -101,5 +105,10 @@ module.exports = function iglogger(dispatch) {
 			if(consolelog) console.log('['+minutesec+']'+': '+'From server? '+rawtext.x+' ('+rawtext.y===undefined ? code : rawtext.y+') '+rawtext.z)
 			fs.appendFileSync(path.join(__dirname,('log_raw '+pktname.replace('*','All')+' '+datehour+'.json')),('['+minutesec+']'+': '+'From server? '+(rawtext.x)+' ('+(rawtext.y===undefined ? code : rawtext.y)+') '+(rawtext.z)+'\r\n'))
 		})
+	}
+	
+	function breakoff() {
+		let datehour=Date().slice(4,19).replace(':','h')
+		fs.appendFileSync(path.join(__dirname,('log_raw '+pktname.replace('*','All')+' '+datehour+'.json')),('/////Breakoff chunk ['+Date().slice(16,24)+']\r\n'))
 	}
 }
