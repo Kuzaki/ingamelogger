@@ -109,6 +109,6 @@ module.exports = function iglogger(dispatch) {
 	
 	function breakoff() {
 		let datehour=Date().slice(4,19).replace(':','h')
-		fs.appendFileSync(path.join(__dirname,('log_raw '+pktname.replace('*','All')+' '+datehour+'.json')),('/////Breakoff chunk ['+Date().slice(16,24)+']\r\n'))
+		fs.appendFileSync(path.join(__dirname,('log_raw All '+datehour+'.json')),('/////Breakoff chunk ['+Date().slice(16,24)+']\r\n'))
 	}
 }
