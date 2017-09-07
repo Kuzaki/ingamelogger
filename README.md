@@ -23,7 +23,8 @@ Type in /proxy chat or prefix commands with '!' if typing in other chats. Spaces
 
 - logger (packet name in tera-data def file)- direct the logging of defined packet. eg: logger S_SPAWN_USER will direct the logging of S_SPAWN_USER<'version'> where version is set by the previous command. Confirmation message with packet definition and version number will be displayed. Using * as the packet name hooks onto all defined packets and you should keep Version number to 1 or * if you want to hook all defined packets without errors (See error section for explanation).
 - loggerstart (number of runs)- Starts the logging and (number of runs) dictate the number of packets definied in the previous command to log before stopping logs. Default number of runs is 1. Leaving no numbers will just log the number set previously or log 1 if none has been set. Logs are displayed in game system message and log files by default.
-- loggerbreak -Creates a break on the json log so it is easier to identify actions. You can type 'loggerbreak', do ur ingame action, then 'loggerbreak' again, and study the packets sent during the interval on the json log. 
+
+- loggerbreak -Creates a break on the json log so it is easier to identify actions. You can type 'loggerbreak', do ur ingame action, then 'loggerbreak' again, and study the packets sent during the interval on the json log. Only works for 'loggerraw' jsons. 
 The break will be called: '/////Breakoff chunk [time]'
 
 It is recommended you double check the previous command output message for typos before starting the log.
